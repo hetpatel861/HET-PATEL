@@ -1,0 +1,27 @@
+import joblib
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+# 1. Create a simple dataset
+# Features: [study_hours, attendance_percentage, sleep_hours, previous_score]
+data = {
+    'study_hours': [1.5, 3.0, 5.0, 2.0, 6.0, 1.0, 4.0, 5.5],
+    'attendance': [65, 80, 95, 70, 98, 50, 85, 92],
+    'sleep_hours': [6, 7, 8, 6, 8, 5, 7, 8],
+    'previous_score': [60, 75, 88, 65, 92, 52, 80, 90],
+    'final_score': [63, 78, 91, 68, 95, 55, 83, 93],
+}
+
+df = pd.DataFrame(data)
+
+# 2. Define features (X) and target (y)
+X = df[['study_hours', 'attendance', 'sleep_hours', 'previous_score']]
+y = df['final_score']
+
+# 3. Train the model
+model = LinearRegression()
+model.fit(X, y)
+
+# 4. Save the trained model to disk
+joblib.dump(model, 'model.pkl')
+print('Model trained and saved as model.pkl')
